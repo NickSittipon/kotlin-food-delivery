@@ -20,12 +20,13 @@ import com.example.fooddelivery.R
 import com.example.fooddelivery.ui.theme.AppTheme
 import androidx.compose.material3.Text
 import androidx.compose.foundation.background
-
+import com.example.fooddelivery.data.ProductPreviewState
 
 
 @Composable
 fun ProductPreviewSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    state: ProductPreviewState
 ) {
     Box(
         modifier = modifier.height(IntrinsicSize.Max)
@@ -34,6 +35,7 @@ fun ProductPreviewSection(
             modifier = Modifier.padding(bottom = 24.dp)
         )
         Content(
+            state = state,
             modifier = Modifier
                 .statusBarsPadding()
                 .padding(top = 24.dp)
@@ -57,14 +59,17 @@ private fun ProductBackground(
 
 
 @Composable
-private fun Content(modifier: Modifier = Modifier) {
+private fun Content(
+    modifier: Modifier = Modifier,
+    state: ProductPreviewState,
+    ) {
     ConstraintLayout(
         modifier = modifier.fillMaxWidth()
     ) {
         val (actionBar, highlights, productImg) = createRefs()
 
         ActionBar(
-            headline = "Mr. Sittipon",
+            headline = "Mr. Nick",
             modifier = Modifier
                 .padding(horizontal = 19.dp)
                 .constrainAs(actionBar) {
@@ -83,7 +88,13 @@ private fun Content(modifier: Modifier = Modifier) {
                     top.linkTo(anchor = actionBar.bottom, margin = 20.dp)
                 }
         )
-
+        ProductHighlights(
+            highlights = state.highlights,
+            modifier = Modifier.constrainAs(highlights){
+                start.linkTo(anchor = parent.start, margin = 19.dp)
+                top.linkTo(productImg.top)
+            }
+            )
     }
 }
 
