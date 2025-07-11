@@ -21,6 +21,12 @@ import com.example.fooddelivery.ui.screen.components.FlavorSection
 import com.example.fooddelivery.ui.screen.components.ProductDescriptionSection
 import com.example.fooddelivery.ui.screen.components.ProductNutritionSection
 import com.example.fooddelivery.ui.screen.components.ProductPreviewSection
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import com.example.fooddelivery.data.OrderData
+import com.example.fooddelivery.data.OrderState
+import com.example.fooddelivery.ui.screen.components.OrderActionBar
 
 
 @Composable
@@ -29,14 +35,50 @@ fun ProductDetailsScreen(
     productPreviewState: ProductPreviewState = ProductPreviewState(),
     productFlavors: List<ProductFlavorState> = ProductFlavorsData,
     productNutritionState: ProductNutritionState = ProductNutritionData,
-    productDescription: String = ProductDescriptionData
+    productDescription: String = ProductDescriptionData,
+    orderState: OrderState = OrderData,
+    onAddItemClicked : () -> Unit,
+    onRemoveItemClicked: () -> Unit,
+    onCheckOutClicked: () -> Unit
 ) {
-    val scrollableState = rememberScrollState()
-    
-    Column(
-        modifier = modifier.verticalScroll(scrollableState)
-        
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomCenter
     ){
+        Content(
+            productPreviewState = productPreviewState,
+            productFlavors =productFlavors ,
+            productNutritionState = productNutritionState,
+            productDescription = productDescription
+        )
+        OrderActionBar(
+            state = orderState,
+            onAddItemClicked = onAddItemClicked,
+            onRemoveItemClicked = onRemoveItemClicked,
+            onCheckOutClicked = onCheckOutClicked,
+            modifier = Modifier
+                .navigationBarsPadding()
+                .padding(
+                    horizontal = 18.dp,
+                    vertical = 8.dp
+                )
+        )
+    }
+}
+
+@Composable
+private fun Content(
+    modifier: Modifier = Modifier,
+    productPreviewState: ProductPreviewState,
+    productFlavors: List<ProductFlavorState>,
+    productNutritionState: ProductNutritionState,
+    productDescription: String
+) {
+    val scrollState = rememberScrollState()
+
+    Column(
+        modifier = modifier.verticalScroll(scrollState)
+    ) {
         ProductPreviewSection(
             state = productPreviewState
         )
@@ -44,15 +86,15 @@ fun ProductDetailsScreen(
             modifier = Modifier.height(16.dp)
         )
         FlavorSection(
-            modifier = Modifier.padding(18.dp),
-            data = productFlavors
+            data = productFlavors,
+            modifier = Modifier.padding(horizontal = 18.dp)
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
         ProductNutritionSection(
-            modifier =Modifier.padding(horizontal = 18.dp),
-            state = productNutritionState
+            state = productNutritionState,
+            modifier = Modifier.padding(horizontal = 18.dp)
         )
         Spacer(
             modifier = Modifier.height(32.dp)
@@ -62,7 +104,7 @@ fun ProductDetailsScreen(
             modifier = Modifier
                 .navigationBarsPadding()
                 .padding(horizontal = 18.dp)
-                .padding(bottom = 24.dp)
+                .padding(bottom = 128.dp)
         )
     }
 }

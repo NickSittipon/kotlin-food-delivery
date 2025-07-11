@@ -13,7 +13,7 @@ enum class ProductHighlightType{
 }
 
 data class ProductPreviewState(
-    val headline: String = "Mr. Cheezy",
+    val headline: String = "Mr. Sittpon",
     @DrawableRes val productImg: Int = R.drawable.img_burger,
     val highlights: List<ProductHighlightState> = listOf(
         ProductHighlightState(

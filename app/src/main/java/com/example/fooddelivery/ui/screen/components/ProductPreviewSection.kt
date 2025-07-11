@@ -69,7 +69,7 @@ private fun Content(
         val (actionBar, highlights, productImg) = createRefs()
 
         ActionBar(
-            headline = "Mr. Nick",
+            headline = "Mr. Sittipon",
             modifier = Modifier
                 .padding(horizontal = 19.dp)
                 .constrainAs(actionBar) {
