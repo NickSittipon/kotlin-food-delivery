@@ -15,7 +15,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AppTheme {
-                ProductPreviewSection(state = ProductPreviewState())
+                ProductPreviewSection(
+                    state = ProductPreviewState()
+                )
             }
         }
     }
